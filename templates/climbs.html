@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Climbs</title>
+    <style>
+        body { font-family: Arial, padding: 2em; background: #f4f4f4; }
+        table { border-collapse: collapse; width: 100%; background: #fff; }
+        th, td { padding: 12px; border: 1px solid #ccc; text-align: left; }
+        th { background-color: #3498db; color: white; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        h2 { margin-bottom: 1em; }
+    </style>
+</head>
+<body>
+    <h2>All Recorded Climbs</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Grade</th>
+                <th>Crag Name</th>
+                <th>Style</th>
+                <th>Date Climbed</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for climb in climbs %}
+            <tr>
+                <td>{{ climb.id }}</td>
+                <td>{{ climb.name }}</td>
+                <td>{{ climb.grade }}</td>
+                <td>{{ climb.crag_id }}</td>
+                <td>{{ climb.style_id }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

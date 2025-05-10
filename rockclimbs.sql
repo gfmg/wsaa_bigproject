@@ -31,29 +31,29 @@ CREATE TABLE climb_log (
     FOREIGN KEY (climb_id) REFERENCES climbs(id)
 );
 
---INSERT INTO styles (style_name)
---VALUES 
---('Bouldering'),
---('Lead'),
---('Trad');
+INSERT INTO styles (style_name)
+VALUES 
+('Bouldering'),
+('Lead'),
+('Trad');
 
---INSERT INTO crags (name, location, country)
---VALUES 
---('Inishmore', 'Aran Islands', 'Ireland'),
---('Tamadaba', 'Canary Islands', 'Spain'),
---('Patones', 'Madrid', 'Spain');
+INSERT INTO crags (name, location, country)
+VALUES 
+('Inishmore', 'Aran Islands', 'Ireland'),
+('Tamadaba', 'Canary Islands', 'Spain'),
+('Patones', 'Madrid', 'Spain');
 
---INSERT INTO climbs (name, grade, crag_id, style_id)
---VALUES 
---('Piercing Bamba', '7a+', 1, 2),  
---('Freight Train Boogie', '7b', 1, 2),     
---('Panico en Juncalillo', '6a+', 2, 2),      
---('Directo al techo', '6b', 3, 2);         
+INSERT INTO climbs (name, grade, crag_id, style_id)
+VALUES 
+('Piercing Bamba', '7a+', 1, 2),  
+('Freight Train Boogie', '7b', 1, 2),     
+('Panico en Juncalillo', '6a+', 2, 2),      
+('Directo al techo', '6b', 3, 2);         
 
---INSERT INTO climb_log (climb_id, completed, attempts, personal_grade_feeling,date_climbed)
---VALUES 
---(1, TRUE, 15, '7a+','2022-08-14'),
---(2, TRUE, 4, '7b','2023-08-14'),
---(3, TRUE, 1, '6a+','2025-05-07'),
---(4, TRUE, 3, '6b','2021-02-14');
+INSERT INTO climb_log (climb_id, completed, attempts, personal_grade_feeling,date_climbed)
+VALUES 
+(1, TRUE, 15, '7a+','2022-08-14'),
+(2, TRUE, 4, '7b','2023-08-14'),
+(3, TRUE, 1, '6a+','2025-05-07'),
+(4, TRUE, 3, '6b','2021-02-14');
 
