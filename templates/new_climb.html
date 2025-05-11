@@ -1,18 +1,71 @@
-<!-- templates/new_climb.html -->
 <!DOCTYPE html>
 <html>
 <head>
     <title>Add New Climb</title>
     <style>
-        body { font-family: Arial; padding: 2em; background: #f4f4f4; }
-        form { background: white; padding: 2em; border-radius: 8px; width: 400px; margin: auto; }
-        input, select, label { display: block; margin-bottom: 1em; width: 100%; }
-        button { padding: 0.5em 1em; background: #2ecc71; color: white; border: none; border-radius: 4px; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 2em;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2em;
+        }
+
+        form {
+            background: white;
+            padding: 2em;
+            border-radius: 8px;
+            width: 400px;
+            flex-shrink: 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-box {
+            background: white;
+            padding: 1em;
+            border-radius: 8px;
+            max-height: 500px;
+            overflow-y: scroll;
+            width: 500px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input, select, label {
+            display: block;
+            margin-bottom: 1em;
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        button {
+            padding: 0.5em 1em;
+            background: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
-    <h2>Add a New Climb</h2>
+
     <form action="/newclimb" method="post">
+        <h2>Add a New Climb</h2>
         <label>Name: <input type="text" name="name" required></label>
         <label>Grade: <input type="text" name="grade" required></label>
         <label>Crag ID: <input type="number" name="crag_id" required></label>
@@ -30,5 +83,48 @@
 
         <button type="submit">Add Climb</button>
     </form>
+
+    <div class="info-box">
+        <h3>Available Crags</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Location</th>
+                    <th>Country</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for crag in crags %}
+                <tr>
+                    <td>{{ crag.id }}</td>
+                    <td>{{ crag.name }}</td>
+                    <td>{{ crag.location }}</td>
+                    <td>{{ crag.country }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h3 style="margin-top: 2em;">Available Styles</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Style</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for style in styles %}
+                <tr>
+                    <td>{{ style.id }}</td>
+                    <td>{{ style.style_name }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 </body>
 </html>

@@ -51,6 +51,7 @@ class ClimbDAO:
             climbs.append(self.convertToDictionary(result))
         self.closeAll()
         return climbs
+    
 
     def convertToDictionary(self, resultLine):
         keys = ['id', 'name', 'grade', 'crag_id', 'style_id']

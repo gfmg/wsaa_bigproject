@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crag Map</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+        #map { height: 100vh; width: 100vw; }
+    </style>
+</head>
+<body>
+
+<h2 style="padding: 1em;">Crags Map</h2>
+<div id="map"></div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    // Create the map and center it on Europe
+    var map = L.map('map').setView([45.0, 0.0], 3);
+
+    // Add OpenStreetMap tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Crag data from Flask
+    var crags = {{ crags | tojson }};
+
+    // Add markers for each crag
+    crags.forEach(function(crag) {
+    if (crag.lat && crag.lon) {
+        var popupContent = `<strong>${crag.name}</strong><br>${crag.location}, ${crag.country}`;
+        if (crag.more_info) {
+            popupContent += `<br><a href="${crag.more_info}" target="_blank">More Info</a>`;
+        }
+
+        L.marker([crag.lat, crag.lon])
+            .addTo(map)
+            .bindPopup(popupContent);
+    }
+});
+</script>
+
+</body>
+</html>
