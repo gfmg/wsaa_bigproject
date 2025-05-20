@@ -10,7 +10,7 @@ The repository contains the following folder and files:
 
 - **Templates folder**: the templates folder contains the .html files that are displayed in the web. 
 - **climbDao.py**:
-- **dbconfig.py**:
 - **server.py**: 
-- **rockclimbs.sql**: this sql file helps you set the database of your climbs locally, so you can use the remaining of the scripts within this repository to test the App and continue modifying it. Simply copy it , include your climbs, crags or any other information you might want to store and create the table locally using MySQL. 
+- **rockclimbs.sql**: this sql file helps you set the database of your climbs locally, so you can use the remaining of the scripts within this repository to test the App and continue modifying it. Simply copy it , include your climbs, crags or any other information you might want to store and create the database locally using MySQL. 
+- **dbconfig.py**: This code defines a Python dictionary that stores the configuration details required to connect to a MySQL database. It is then used with MySQL client libraries (mysql.connector) to establish a database connection in the python application (working to set it up with python/anywhere currently).
 
