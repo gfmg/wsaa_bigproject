@@ -9,6 +9,14 @@
         th { background-color: #3498db; color: white; }
         tr:nth-child(even) { background-color: #f9f9f9; }
         h2 { margin-bottom: 1em; }
+        button {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -16,24 +24,54 @@
     <table>
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Grade</th>
                 <th>Crag Name</th>
-                <th>Style</th>
                 <th>Date Climbed</th>
+                <th>Style</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             {% for climb in climbs %}
-            <tr>
+            <tr id="climb-row-{{ climb.id }}">
                 <td>{{ climb.id }}</td>
                 <td>{{ climb.name }}</td>
                 <td>{{ climb.grade }}</td>
-                <td>{{ climb.crag_id }}</td>
-                <td>{{ climb.style_id }}</td>
+                <td>{{ climb.crag_name }}</td>
+                <td>{{ climb.date_climbed }}</td>
+                <td>{{ climb.style_name }}</td>
+                <td>
+                    <button onclick="deleteClimb({{ climb.id }})">
+                        Delete
+                    </button>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+
+    <script>
+    function deleteClimb(climbId) {
+        if (!confirm("Are you sure you want to delete this climb and its log?")) return;
+
+        fetch(`/deleteclimb/${climbId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => {
+            if (response.ok) {
+                document.getElementById(`climb-row-${climbId}`).remove();
+            } else {
+                alert("Error deleting climb.");
+            }
+        }).catch(error => {
+            console.error("Delete failed:", error);
+            alert("Delete failed. See console.");
+        });
+    }
+    </script>
 </body>
 </html>

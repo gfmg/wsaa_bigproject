@@ -39,10 +39,10 @@ def submitNewClimb():
     climbDAO.create_climb_with_log(data)
     return redirect(url_for('index'))
 
-#@app.route('/deleteclimb/<int:climb_id>', methods=['POST'])
-#def deleteClimb(climb_id):
-#    climbDAO.delete_climb_with_log(climb_id)
-#    return redirect(url_for('showClimbs'))  # goes back to /climbs
+@app.route('/deleteclimb/<int:climb_id>', methods=['DELETE'])
+def deleteClimb(climb_id):
+    climbDAO.delete_climb_with_log(climb_id)
+    return jsonify({'status': 'success'}), 200
 
 # To display the crag and style boxes in the new climb form
 @app.route('/newclimb', methods=['GET'])

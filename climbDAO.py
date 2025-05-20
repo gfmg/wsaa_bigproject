@@ -35,7 +35,7 @@ class ClimbDAO:
     def getAll_climbs(self):
         cursor = self.getcursor()
         sql = """
-        SELECT c.name,c.grade,cr.name as Crag_Name,s.style_name as Style,cl.date_climbed
+        SELECT c.id,c.name,c.grade,cr.name as Crag_Name,s.style_name as Style,cl.date_climbed
               FROM climbs as c  
               JOIN crags as cr  
               ON c.crag_id = cr.id  
@@ -54,7 +54,7 @@ class ClimbDAO:
     
 
     def convertToDictionary(self, resultLine):
-        keys = ['id', 'name', 'grade', 'crag_id', 'style_id']
+        keys = ['id', 'name', 'grade', 'crag_name', 'style_name', 'date_climbed']
         return dict(zip(keys, resultLine))
 
     def create_climb_with_log(self, data):
@@ -101,5 +101,11 @@ class ClimbDAO:
             }
         }
 
+    def delete_climb_with_log(self, climb_id):
+        cursor = self.getcursor()
+        cursor.execute("DELETE FROM climb_log WHERE climb_id = %s", (climb_id,))
+        cursor.execute("DELETE FROM climbs WHERE id = %s", (climb_id,))
+        self.connection.commit()
+        self.closeAll()
 
 climbDAO = ClimbDAO()

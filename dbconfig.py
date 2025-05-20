@@ -8,6 +8,6 @@
 mysql = {
     'host':"localhost",
     'user':"root",
-    'password':"MyDBroot",
+    'password':"",
     'database':"rockclimbs"
 }
