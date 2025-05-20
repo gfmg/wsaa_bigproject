@@ -16,7 +16,10 @@ CREATE TABLE crags (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     location VARCHAR(255),
-    country VARCHAR(100)
+    country VARCHAR(100),
+    lat DECIMAL(10,6),
+    lon DECIMAL(10,6),
+    more_info VARCHAR(500)
 );
 
 CREATE TABLE climbs (
@@ -44,11 +47,11 @@ VALUES
 ('Lead'),
 ('Trad');
 
-INSERT INTO crags (name, location, country)
+INSERT INTO crags (name, location, country, lat, lon, more_info)
 VALUES 
-('Inishmore', 'Aran Islands', 'Ireland'),
-('Tamadaba', 'Canary Islands', 'Spain'),
-('Patones', 'Madrid', 'Spain');
+('Inishmore', 'Aran Islands', 'Ireland', 53.107500, -9.699083, 'https://www.instagram.com/inismor_bolt_fund/?hl=es'),
+('Tamadaba', 'Canary Islands', 'Spain', 28.057809, -15.695204, 'https://www.thecrag.com/es/escalar/spain/gran-canaria/tamadaba'),
+('Patones', 'Madrid', 'Spain', 40.882628, -3.441240, 'https://www.thecrag.com/es/escalar/spain/patones');
 
 INSERT INTO climbs (name, grade, crag_id, style_id)
 VALUES 
@@ -63,22 +66,3 @@ VALUES
 (2, TRUE, 4, '7b','2023-08-14'),
 (3, TRUE, 1, '6a+','2025-05-07'),
 (4, TRUE, 3, '6b','2021-02-14');
-
-ALTER TABLE crags
-ADD COLUMN lat DECIMAL(10,6),
-ADD COLUMN lon DECIMAL(10,6);
-
-ALTER TABLE crags
-ADD COLUMN more_info VARCHAR(500);
-
-UPDATE crags
-SET lat = 53.107500, lon = -9.699083,more_info = 'https://www.instagram.com/inismor_bolt_fund/?hl=es'
-WHERE name = 'Inishmore';
-
-UPDATE crags
-SET lat = 28.057809, lon = -15.695204, more_info = 'https://www.thecrag.com/es/escalar/spain/gran-canaria/tamadaba'
-WHERE name = 'Tamadaba';
-
-UPDATE crags
-SET lat = 40.882628, lon = -3.441240, more_info = 'https://www.thecrag.com/es/escalar/spain/patones'
-WHERE name = 'Patones';
