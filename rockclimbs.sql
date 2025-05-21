@@ -38,7 +38,8 @@ CREATE TABLE climb_log (
     completed BOOLEAN DEFAULT FALSE,
     attempts INT DEFAULT 0,
     personal_grade_feeling VARCHAR(20),
-    FOREIGN KEY (climb_id) REFERENCES climbs(id)
+    FOREIGN KEY (climb_id) REFERENCES climbs(id),
+    date_climbed DATE
 );
 
 INSERT INTO styles (style_name)
