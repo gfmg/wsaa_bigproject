@@ -64,7 +64,7 @@
 </head>
 <body>
 
-    <form action="/newclimb" method="post">
+    <form id="climbForm">
         <h2>Add a New Climb</h2>
         <label>Name: <input type="text" name="name" required></label>
         <label>Grade: <input type="text" name="grade" required></label>
@@ -125,6 +125,44 @@
             </tbody>
         </table>
     </div>
+
+    <script>
+    document.getElementById("climbForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const form = event.target;
+        const data = {
+            name: form.name.value,
+            grade: form.grade.value,
+            crag_id: parseInt(form.crag_id.value),
+            style_id: parseInt(form.style_id.value),
+            completed: form.completed.value === "1",
+            attempts: parseInt(form.attempts.value),
+            personal_grade_feeling: form.personal_grade_feeling.value,
+            date_climbed: form.date_climbed.value || null
+        };
+
+        fetch("/newclimb", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (!response.ok) throw new Error("Failed to add climb");
+            return response.json();
+        })
+        .then(result => {
+            alert("Climb added successfully!");
+            form.reset();
+        })
+        .catch(error => {
+            alert("Error adding climb. See console.");
+            console.error("Add climb failed:", error);
+        });
+    });
+</script>    
 
 </body>
 </html>

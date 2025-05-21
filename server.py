@@ -25,19 +25,23 @@ def showClimbs():
 # To add a new climb
 @app.route('/newclimb', methods=['POST'])
 def submitNewClimb():
-    form = request.form
-    data = {
-        "name": form['name'],
-        "grade": form['grade'],
-        "crag_id": int(form['crag_id']),
-        "style_id": int(form['style_id']),
-        "completed": bool(int(form['completed'])),
-        "attempts": int(form['attempts']),
-        "personal_grade_feeling": form.get('personal_grade_feeling'),
-        "date_climbed": form.get('date_climbed') or None
+    if request.is_json:
+        data = request.get_json()
+    else:
+        return jsonify({"error": "Invalid JSON"}), 400
+
+    climb = {
+        "name": data['name'],
+        "grade": data['grade'],
+        "crag_id": int(data['crag_id']),
+        "style_id": int(data['style_id']),
+        "completed": bool(data['completed']),
+        "attempts": int(data['attempts']),
+        "personal_grade_feeling": data.get('personal_grade_feeling'),
+        "date_climbed": data.get('date_climbed') or None
     }
-    climbDAO.create_climb_with_log(data)
-    return redirect(url_for('index'))
+    result = climbDAO.create_climb_with_log(climb)
+    return jsonify(result), 201
 
 @app.route('/deleteclimb/<int:climb_id>', methods=['DELETE'])
 def deleteClimb(climb_id):
